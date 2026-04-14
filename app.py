@@ -67,8 +67,31 @@ food = st.text_input("Enter food item")
 calories = st.number_input("Enter calories", min_value=0)
 
 if st.button("Add"):
+    if image:
+    st.write("🔍 Analyzing food...")
+
+    # Dummy prediction
+    food_name = "Rice + Curry"
+    calories_est = 450
+
+    st.success(f"Detected: {food_name}")
+    st.info(f"Estimated Calories: {calories_est}")
     new_entry = pd.DataFrame([[food, calories]], columns=["Food", "Calories"])
     st.session_state.data = pd.concat([st.session_state.data, new_entry], ignore_index=True)
+st.subheader("📸 Capture your meal")
+
+image = st.camera_input("Take a picture of your food")
+
+if image:
+    st.image(image, caption="Your Meal", use_column_width=True)
+    st.write("🔍 Analyzing food...")
+
+    # Dummy AI result (for now)
+    food_name = "Rice + Curry"
+    calories_est = 450
+
+    st.success(f"Detected: {food_name}")
+    st.info(f"Estimated Calories: {calories_est}")
 
 st.subheader("Today's Intake")
 st.dataframe(st.session_state.data)
